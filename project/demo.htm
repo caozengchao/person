@@ -1,0 +1,191 @@
+<html>
+<head>
+    <style>
+        .float{
+            float: left;
+        }
+    </style>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="socketclient.js"></script>
+</head>
+
+<body>
+<div id="list">
+</div>
+<div class="float">
+    <canvas id="canvas" width="400" height="400" style="border:1px inset green"> 
+</div>
+<div>
+    <canvas id="canvas2" width="400" height="400" style="border:1px inset green"> 
+</div>
+<div>
+<input type="file" id="input" />
+<input id="btnSendfile" type="button" value="发送" onclick="sendfile()" />
+</div>
+
+<script>
+function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+var client = new SocketClient("49.233.100.241",8181,"chat");
+client.connect();
+var change = false
+var change2 = false
+var img_data = []
+var img_data2 = []
+// console.log(img_data)
+client.onData  = function(text) {
+    // var div = document.createElement('div');
+    // div.innerHTML = text;
+    // document.getElementById('list').appendChild(div);
+    if(text=='end'){
+        console.log('end');
+        console.log('data',img_data)
+        change = false;
+        var canvas2 = document.getElementById('canvas2');
+        var ctx2 = canvas2.getContext('2d');
+        // '''//默认创建出来的rgba(0,0,0,0)
+        // var image =	ctx2.createImageData(100,100)		
+        // for(var i=0;i<image.data.length;i++){
+        //     image.data[4*i+3] = 255
+        // }
+        // //将像素数据写入画布
+        // ctx2.putImageData(image,0,0)'''
+        // var img2 = new Image();
+        imageData = ctx2.createImageData(400, 400);
+        for(var i=0;i<imageData.data.length;i++){
+            imageData.data[i] = img_data[i]
+        }
+        // imageData.data.set(data);
+        // let result = et.target.result
+        // img.src = result
+        // imageData.onload = function(){
+        console.log('end1');
+        ctx2.putImageData(imageData,0,0);
+        // ctx2.drawImage(imageData, 0,0,400,400);
+        console.log('end1');
+        // };
+        img_data=[]
+    };
+    if(change){
+        var xlist = text.split(',')
+        // console.log('xlist',xlist)
+        // console.log('data:::',img_data)
+        for(var i = 0;i<xlist.length;i++){
+            img_data[img_data.length]= parseInt(xlist[i])
+            // console.log('datalen',data.length)
+            // console.log(img_data)
+            // console.log(xlist)
+        }
+    }
+    if(text=='start'){
+        console.log('start')
+        change = true
+        img_data = []
+    }
+    if(text=='end2'){
+        console.log('end2');
+        console.log('data',img_data2)
+        change2 = false;
+        var canvas2 = document.getElementById('canvas2');
+        var ctx2 = canvas2.getContext('2d');
+        // '''//默认创建出来的rgba(0,0,0,0)
+        // var image =	ctx2.createImageData(100,100)		
+        // for(var i=0;i<image.data.length;i++){
+        //     image.data[4*i+3] = 255
+        // }
+        // //将像素数据写入画布
+        // ctx2.putImageData(image,0,0)'''
+        // var img2 = new Image();
+        imageData = ctx2.createImageData(400, 400);
+        for(var i=0;i<imageData.data.length;i++){
+            imageData.data[i] = img_data2[i]
+        }
+        // imageData.data.set(data);
+        // let result = et.target.result
+        // img.src = result
+        // imageData.onload = function(){
+        console.log('end1');
+        ctx2.putImageData(imageData,0,0);
+        // ctx2.drawImage(imageData, 0,0,400,400);
+        console.log('end1');
+        // };
+        img_data=[]
+    };
+    if(change2){
+        var xlist = text.split(',')
+        // console.log('xlist',xlist)
+        // console.log('data:::',img_data)
+        for(var i = 0;i<xlist.length;i++){
+            img_data2[img_data2.length]= parseInt(xlist[i])
+            // console.log('datalen',data.length)
+            // console.log(img_data)
+            // console.log(xlist)
+        }
+    }
+    if(text=='start2'){
+        console.log('start2')
+        change2 = true
+        img_data2 = []
+    }
+}
+
+// document.getElementById('send').onclick = function(e){
+//     client.sendData(document.getElementById('content').value);
+// }
+let ele = document.getElementById('input')
+ele.onchange = function (e) {
+    let files = e.target.files // 获取上传的文件集合
+    let file = files[0] // 获取第一个文件
+    let render = new FileReader()
+
+    // 异步事件
+    render.onload = function (et) {
+        console.log('et: ', et)
+        var mycanvas = document.getElementById('canvas')
+        var ctx = mycanvas.getContext('2d')
+        var img = new Image();
+        let result = et.target.result
+        img.src = result
+        img.onload = function(){
+            console.log('result: ', result)
+            ctx.drawImage(img, 0,0,400,400);
+        }
+    }
+    render.readAsDataURL(file)
+}
+
+
+async function sendfile() { 
+        var canvas = document.getElementById("canvas");
+        var contexta=canvas.getContext('2d');
+        var img = contexta.getImageData(0, 0, 400, 400);
+        var list_binary = []
+        var binary = [];
+        for(var j = 0; j < 40000; j++){
+            binary = [];
+            for (var i = 0; i < 16; i++) {
+                // client.sendData(img.data[j*10+i]);
+                // binary[i] = img.data[j*8000+i];
+                binary[i] = img.data[j*16+i]
+            }
+            list_binary[j] = binary
+            if(j==0){
+                client.sendData('start')
+            }
+            client.sendData(binary)
+            if(j>=39999){
+                client.sendData('end')
+            }
+            // document.getElementById('content').value = binary
+            // await sleep(50); 
+            // console.log(img.data.length)
+            // client.sendData(document.getElementById('content').value);
+        }
+        console.log(list_binary)
+    }
+</script>
+</body>
+</html>
+
+
