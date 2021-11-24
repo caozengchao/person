@@ -1,0 +1,139 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ 
+.float{
+    display: inline;
+}
+.middle{
+    top:400px;
+    height: 400px;
+    width: 850px;
+    position: absolute;
+    text-align: center;
+    left: 310px;
+    background-color: aliceblue;
+    
+}
+.float1{
+    display: inline;
+}
+.selectType{
+    text-align: center;                     
+}
+#input{
+    text-align: center;
+}
+.div0{
+    top:800px;
+    height: 50px;
+    width: 400px;
+    position: absolute;
+    text-align: center;
+    left: 550px;
+    background-color: aliceblue;
+    margin-top: 10px;
+}
+body{
+    font: normal 100% Helvetica, Arial, sans-serif;
+}
+h3{
+    font-size: 1.5em;
+}
+.main{
+    float: right;
+    width: 70%;
+} 
+.leftBar{
+    float: left;
+    width: 25%;
+}
+img{
+    height: 200px;
+    width: 200px;
+    opacity:0.8;
+}
+.cube{
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    top:    0px;
+    left: 500px;
+    z-index: 1;
+}
+.cube1{
+    height: 600px;
+    width: 600px;
+    position: absolute; 
+    transition:3s; 
+    -webkit-transform-style: preserve-3d;
+    -webkit-transform-origin:center center;
+    -webkit-transform:rotateY(37deg);
+}
+.surface1{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    position: absolute;
+    left: 200px;
+    top: 200px;
+}
+.surface2{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    -webkit-transform-origin:bottom;
+    -webkit-transform: rotateX(90deg);
+    position: absolute;
+    left: 200px;
+    top: 0;
+}
+.surface3{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    -webkit-transform-origin:right;
+    -webkit-transform: rotateY(-90deg);
+    position: absolute;
+    left: 0;
+    top: 200px;
+}
+.surface4{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    -webkit-transform-origin:left;
+    -webkit-transform: rotateY(90deg);
+    position: absolute;
+    right: 0;
+    top: 200px;
+}
+.surface5{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    -webkit-transform-origin:top;
+    -webkit-transform: rotateX(-90deg);
+    position: absolute;
+    left: 200px;
+    bottom: 0;
+}
+.surface6{
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    -webkit-transform:translateZ(-200px) rotateX(180deg);
+    position: absolute;
+    left: 200px;
+    top: 200px;
+}
+.back{
+    height: 1200px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-image: url('img/86b0-hwsffza7766335.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+} 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  personsum</title>
+    <link rel = "icon" type = "image/x-icon" href = "img/a.ico"  />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="back">
+    <div id = "cubeFather" class = "cube">
+        <div id = "cube" class = "cube1">
+            <!-- 六个面都会涉及 -->
+            <div class="surface1" value = "translateZ(100px)">
+                <img src="img/surface1.jpg" alt="">
+            </div><div class="surface2" value = "translateY(-100px) rotateX(90deg)">
+                <img src="img/surface2.jpg" alt="">
+            </div><div class="surface3" value = "translateX(-100px) rotateY(-90deg)">
+                <img src="img/surface3.jpg" alt="">
+            </div><div class="surface4" value = "translateX(200px) rotateY(90deg)">
+                <img src="img/surface4.jpg" alt="">
+            </div><div class="surface5" value = "translateY(100px) rotateX(-90deg)">
+                <img src="img/surface5.jpg" alt="">
+            </div><div class="surface6" value = "translateZ(-300px) rotateX(180deg)">
+                <img src="img/surface6.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="float">
+            <canvas id="canvas" width="400" height="400" style="border:1px inset green"> 
+        </div>
+        <div class="float1">
+            <canvas id="canvas2" width="400" height="400" style="border:1px inset green"> 
+        </div>
+    </div>
+    <div class="div0">
+        <div class="selectType" id="con">
+            <select id="select" name="select">
+                <option value = "37">教室</option>
+                <option value = "25">大人像</option>
+                <option value = "32">小人像</option>
+            </select>
+            <input id="selectInput" type="button" value="确定" onclick="sendOK()" />
+        </div>
+        <input type="file" id="input" />
+        <input id="btnSendfile" type="button" value="发送" onclick="sendfile()" />
+        <h3 id='sum'> </h3>
+    </div>
+</div>
+</body>
+<script src="socketclient.js"></script>
+<script src = "jscode.js"></script>
+</html>
