@@ -226,3 +226,4 @@ select.onchange = function(e){
         selectInput.disabled = false
     }
 }
+alert('如果出现不安全情况，点击url旁边小锁，网站设置，不安全内容改允许')
